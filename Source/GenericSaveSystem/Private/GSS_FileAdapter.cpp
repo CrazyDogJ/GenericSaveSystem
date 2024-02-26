@@ -301,7 +301,7 @@ void FGSS_FileAdapter::DeserializeObject(UObject*& Object, FStringView ClassName
 		return;
 	}
 
-	UClass* ObjectClass = FindObject<UClass>(ANY_PACKAGE, ClassName.GetData());
+	UClass* ObjectClass = FindObject<UClass>(nullptr, ClassName.GetData());
 	if (!ObjectClass)
 	{
 		ObjectClass = LoadObject<UClass>(nullptr, ClassName.GetData());
