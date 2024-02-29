@@ -54,9 +54,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category="Save")
 	bool bUseGuid = false;
-	UPROPERTY(EditAnywhere, Category="Save", meta=(EditCondition="!bUseGuid", EditConditionHides))
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category="Save", meta=(EditCondition="!bUseGuid", EditConditionHides))
 	FString SaveKey;
-	UPROPERTY(EditAnywhere, Category="Save", meta=(EditCondition="bUseGuid", EditConditionHides))
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category="Save", meta=(EditCondition="bUseGuid", EditConditionHides))
 	FGuid SaveId;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Save")
@@ -69,6 +69,8 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Save")
 	bool bSaveOnEndPlay = true;
 
+	UFUNCTION(BlueprintCallable, Category="Save")
+	void NewGuid();
 
 private:
 	FTimerHandle Timer;

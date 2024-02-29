@@ -61,7 +61,7 @@ void UGSS_SaverBase::Serialize(FArchive& Ar)
 
 void UGSS_SaverBase::OnSaveBegan()
 {
-	// Saved.Broadcast();
+	BeforeSave.Broadcast();
 }
 
 void UGSS_SaverBase::OnLoadFinished(bool bError)
@@ -81,6 +81,7 @@ void UGSS_SaverBase::SaveData()
 			UE_LOG(LogTemp, Display, TEXT("Actor:%s Saved With Key:%s"), *GetOwner()->GetName(), *Key.ToString());
 		}
 	}
+	Saved.Broadcast();
 }
 
 void UGSS_SaverBase::LoadData()
@@ -105,6 +106,8 @@ void UGSS_SaverBase::LoadData()
 			UE_LOG(LogTemp, Warning, TEXT("Actor:%s Has no SavedData With Key:%s"), *GetOwner()->GetName(), *Key.ToString());
 		}
 	}
+
+	Resume.Broadcast();
 }
 
 FString UGSS_SaverBase::GetFullKey() const
@@ -166,4 +169,10 @@ void UGSS_SaverBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
 UGSS_SaveSubsystem* UGSS_SaverBase::GetSaveManager()
 {
 	return GetWorld()->GetGameInstance()->GetSubsystem<UGSS_SaveSubsystem>();
+}
+
+void UGSS_SaverBase::NewGuid()
+{
+	if (!SaveId.IsValid())
+		SaveId = FGuid::NewGuid();
 }

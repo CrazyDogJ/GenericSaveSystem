@@ -15,6 +15,8 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FSELifetimeSavedSignature);
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FSELifetimeResumeSignature);
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FSELifetimeBeforeSaveSignature);
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FSELifetimeFinishSignature);
 
 
@@ -69,7 +71,9 @@ protected:
 	UPROPERTY(BlueprintAssignable, Category = "GenericSaveSystem")
 	FSELifetimeFinishSignature Finish;
 
-
+	// Called when this actor gets destroyed for ever
+	UPROPERTY(BlueprintAssignable, Category = "GenericSaveSystem")
+	FSELifetimeBeforeSaveSignature BeforeSave;
 public:
 
 	FSELifetimeStartSignature& OnStart() { return Start; }
