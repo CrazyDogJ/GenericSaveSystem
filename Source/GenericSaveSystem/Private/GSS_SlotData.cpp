@@ -55,3 +55,30 @@ void UGSS_SlotData::CleanRecords(bool bKeepSublevels)
 		SubLevels.Empty();
 	}
 }
+
+bool UGSS_SlotData::CleanRecordByKey(const FName& Key)
+{
+	if (Key.IsValid())
+	{
+		TArray<int32> NeedToRemove;
+		for (int32 i = 0; i < SaverRecords.Num(); i++)
+		{
+			auto SaverRecord = SaverRecords[i];
+			if (SaverRecord.Name.IsEqual(Key))
+			{
+				NeedToRemove.Add(i);
+			}
+		}
+
+		if (NeedToRemove.Num() > 0)
+		{
+			for (const auto Index : NeedToRemove)
+			{
+				SaverRecords.RemoveAtSwap(Index, 1, false);
+			}
+			SaverRecords.Shrink();
+			return true;
+		}
+	}
+	return false;
+}

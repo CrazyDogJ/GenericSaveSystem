@@ -51,6 +51,7 @@ public:
 	TArray<FGSS_ObjectRecord> SaverRecords; //DOTO 跨关卡也存在.
 
 	void CleanRecords(bool bKeepSublevels);
+	bool CleanRecordByKey(const FName& Key);
 
 	/** Using manual serialization. It's way faster than reflection serialization */
 	virtual void Serialize(FArchive& Ar) override;

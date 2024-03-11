@@ -384,6 +384,15 @@ bool UGSS_SaveSubsystem::DeleteSlot(UGSS_SlotInfo* Slot)
 	return Slot ? DeleteSlot(Slot->FileName) : false;
 }
 
+bool UGSS_SaveSubsystem::DeleteCurrentSlotDataByKey(const FName& Key)
+{
+	if (UGSS_SlotData* SlotData = GetCurrentData())
+	{
+		return SlotData->CleanRecordByKey(Key);
+	}
+	return false;
+}
+
 UGSS_SlotInfo* UGSS_SaveSubsystem::GetCurrentInfo()
 {
 	TryInstantiateInfo();

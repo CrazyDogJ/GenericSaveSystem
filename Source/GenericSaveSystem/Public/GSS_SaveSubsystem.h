@@ -283,6 +283,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "GenericSaveSystem")
 	bool DeleteSlot(UGSS_SlotInfo* Slot);
 
+	UFUNCTION(BlueprintCallable, Category = "GenericSaveSystem")
+	bool DeleteCurrentSlotDataByKey(const FName& Key);
+	
 	/** Get the currently loaded SlotInfo. If game was never loaded returns a new SlotInfo */
 	UFUNCTION(BlueprintPure, Category = "GenericSaveSystem")
 	UGSS_SlotInfo* GetCurrentInfo();
